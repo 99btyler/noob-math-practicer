@@ -12,6 +12,7 @@ def do_question(question, answer):
 
 
 def choice_1():
+	print("choice_1: \"Addition 2-9 (when sum > 10)\"")
 	corrects = 0
 	while True:
 		i = random.randint(2, 9)
