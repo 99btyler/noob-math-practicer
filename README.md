@@ -3,4 +3,4 @@ Practice the most basic of math (addition, subtraction, multiplication, division
 
 # Using this yourself
 1. Download this repository
-2. Using terminal, go to the directory of this repository and type `python3 main.py`
+2. Using terminal, navigate to src folder and type `python3 main.py`
