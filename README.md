@@ -1,5 +1,5 @@
 # noob-math-practicer
-Personal tool to get better at the most basic type of math
+Practice the most basic of math (addition, subtraction, multiplication, division) to increase speed
 
 # Using this yourself
 1. Download this repository
