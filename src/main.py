@@ -1,70 +1,121 @@
-import random
+from random import choice
 
 
-def do_question(question, answer):
-	while True:
-		try:
-			guess = int(input(question))
-		except ValueError:
-			continue
-		if guess == answer:
-			return 1
+class Quiz():
+
+	def __init__(self):
+
+		self.correct_answers = 0
+
+		self.operator = None
+
+		self.difficulty = None
+		self.easy_range = [2, 5, 10, 11]
+		self.medium_range = [3, 4, 6, 7, 8, 9, 12]
+
+		self.__setup()
+
+	def __setup(self):
+		print("\n----")
+		print("noob-math-practicer")
+		print("1. addition")
+		print("2. subtraction")
+		print("3. multiplication")
+		print("4. division")
+		while True:
+			# Get decision and make sure it's a number
+			try:
+				decision = int(input("Enter number to start: "))
+			except ValueError:
+				continue
+			# Check if decision is valid
+			if decision == 1:
+				self.operator = "ADDITION"
+				break
+			elif decision == 2:
+				self.operator = "SUBTRACTION"
+				break
+			elif decision == 3:
+				self.operator = "MULTIPLICATION"
+				break
+			elif decision == 4:
+				self.operator = "DIVISION"
+				break
+			else:
+				print("error: not an option")
+		print("----")
+		print("1. easy")
+		print("2. medium")
+		while True:
+			# Get decision and make sure it's a number
+			try:
+				decision = int(input("Enter number to start: "))
+			except ValueError:
+				continue
+			# Check if decision is valid
+			if decision == 1:
+				self.difficulty = "EASY"
+				break
+			elif decision == 2:
+				self.difficulty = "MEDIUM"
+				break
+			else:
+				print("error: not an option")
+		print("----")
+		print(f"Starting {self.operator} quiz on {self.difficulty} level")
+		print("")
+		self.__build_questions()
+
+	def __build_questions(self):
+		while self.correct_answers < 10:
+			# Factor in difficulty
+			constant1 = None
+			constant2 = None
+			if self.difficulty == "EASY":
+				constant1 = choice(self.easy_range)
+				constant2 = choice(self.easy_range)
+			elif self.difficulty == "MEDIUM":
+				constant1 = choice(self.medium_range)
+				constant2 = choice(self.medium_range)
+			# Build the question and answer
+			question = None
+			answer = None
+			if self.operator == "ADDITION":
+				question = f"{constant1}+{constant2}="
+				answer = constant1 + constant2
+			if self.operator == "SUBTRACTION":
+				if constant2 > constant1:
+					i = constant1
+					constant1 = constant2
+					constant2 = i
+				question = f"{constant1}-{constant2}="
+				answer = constant1 - constant2
+			if self.operator == "MULTIPLICATION":
+				question = f"{constant1}*{constant2}="
+				answer = constant1 * constant2
+			if self.operator == "DIVISION":
+				i = constant1 * constant2
+				question = f"{i}/{constant2}="
+				answer = constant1
+			# Ask the question
+			if self.__ask_question(question, answer):
+				self.correct_answers += 1
+
+	def __ask_question(self, question, answer):
+		while True:
+			# Receive guess and make sure it's a number
+			while True:
+				try:
+					guess = int(input(question))
+					break
+				except ValueError:
+					print("error: number is required")
+			# Check if guess is correct
+			if guess == answer:
+				print("Correct\n")
+				return True
+			else:
+				print("WRONG!")
 
 
-def choice_1():
-	print("choice_1: \"Addition 2-9 (when sum > 10)\"")
-	corrects = 0
-	while True:
-		i = random.randint(2, 9)
-		ii = random.randint(9-i+2, 9)
-		corrects += do_question(f"{i}+{ii}=", i+ii)
-		if corrects == 10:
-			break
-
-def choice_2():
-	print("choice_2: \"Multiplication 1-12 (custom_range)\"")
-	corrects = 0
-	while True:
-		custom_range = [3, 4, 6, 7, 8, 9, 12]
-		i = random.choice(custom_range)
-		custom_range.remove(i)
-		ii = random.choice(custom_range)
-		corrects += do_question(f"{i}*{ii}=", i*ii)
-		if corrects == 10:
-			break
-
-def choice_3():
-	print("choice_3: \"Division 1-12 (custom_range)\"")
-	corrects = 0
-	while True:
-		custom_range = [3, 4, 6, 7, 8, 9, 12]
-		i = random.choice(custom_range)
-		custom_range.remove(i)
-		ii = random.choice(custom_range)
-		iii = i * ii
-		corrects += do_question(f"{iii}/{ii}=", iii//ii)
-		if corrects == 10:
-			break
-
-
-print("----")
-print("noob-math-practicer")
-print("1. Addition 2-9 (when sum > 10)")
-print("2. Multiplication 1-12 (custom_range)")
-print("3. Division 1-12 (custom_range)")
-while True:
-	try:
-		choice = int(input("Enter number to start: "))
-	except ValueError:
-		continue
-	if choice > 0 and choice <= 3:
-		break
-print("----")
-
-if choice == 1:
-	choice_1()
-elif choice == 2:
-	choice_2()
-elif choice == 3:
-	choice_3()
-
+quiz = Quiz()
