@@ -1,121 +1,84 @@
 from random import choice
 
 
-class Quiz():
+def get_decision(question, options):
+	for i in range(len(options)):
+		print(f"{i}. '{options[i]}'")
+	print(question)
+	# Get decision
+	while True:
+		# make sure it's a number
+		try:
+			decision = int(input("Enter number: "))
+		except ValueError:
+			continue
+		# make sure it's valid
+		if decision >= 0 and decision < len(options):
+			break
+	return options[decision]
 
-	def __init__(self):
 
-		self.correct_answers = 0
+topic_options = ["addition", "subtraction", "multiplication", "division"]
+difficulty_options = ["easy", "medium"]
 
-		self.operator = None
+print("\n----")
+print("noob-math-practicer")
+topic = get_decision("Which one do you want to practice?", topic_options)
+print("----")
+difficulty = get_decision("Which difficulty do you want?", difficulty_options)
+print("----\n")
 
-		self.difficulty = None
-		self.easy_range = [2, 5, 10, 11]
-		self.medium_range = [3, 4, 6, 7, 8, 9, 12]
+# Factor in difficulty
+range = None
+if difficulty == difficulty_options[0]:
+	range = [2, 5, 10, 11]
+elif difficulty == difficulty_options[1]:
+	range = [3, 4, 6, 7, 8, 9, 12]
 
-		self.__setup()
-
-	def __setup(self):
-		print("\n----")
-		print("noob-math-practicer")
-		print("1. addition")
-		print("2. subtraction")
-		print("3. multiplication")
-		print("4. division")
+# Start quiz
+correct_answers = 0
+while correct_answers < 10:
+	# make the constants
+	constant1 = choice(range)
+	constant2 = choice(range)
+	# build the question/answer
+	question = None
+	answer = None
+	# 'addition'
+	if topic == topic_options[0]:
+		question = f"{constant1}+{constant2}="
+		answer = constant1 + constant2
+	# 'subtraction'
+	if topic == topic_options[1]:
+		if constant2 > constant1:
+			i = constant1
+			constant1 = constant2
+			constant2 = i
+		question = f"{constant1}-{constant2}="
+		answer = constant1 - constant2
+	# 'multiplication'
+	if topic == topic_options[2]:
+		question = f"{constant1}*{constant2}="
+		answer = constant1 * constant2
+	# 'division'
+	if topic == topic_options[3]:
+		i = constant1 * constant2
+		question = f"{i}/{constant2}="
+		answer = constant1
+	# ask the question, get the guess
+	while True:
+		# - make sure guess is a number
 		while True:
-			# Get decision and make sure it's a number
 			try:
-				decision = int(input("Enter number to start: "))
+				guess = int(input(question))
+				break
 			except ValueError:
-				continue
-			# Check if decision is valid
-			if decision == 1:
-				self.operator = "ADDITION"
-				break
-			elif decision == 2:
-				self.operator = "SUBTRACTION"
-				break
-			elif decision == 3:
-				self.operator = "MULTIPLICATION"
-				break
-			elif decision == 4:
-				self.operator = "DIVISION"
-				break
-			else:
-				print("error: not an option")
-		print("----")
-		print("1. easy")
-		print("2. medium")
-		while True:
-			# Get decision and make sure it's a number
-			try:
-				decision = int(input("Enter number to start: "))
-			except ValueError:
-				continue
-			# Check if decision is valid
-			if decision == 1:
-				self.difficulty = "EASY"
-				break
-			elif decision == 2:
-				self.difficulty = "MEDIUM"
-				break
-			else:
-				print("error: not an option")
-		print("----")
-		print(f"Starting {self.operator} quiz on {self.difficulty} level")
-		print("")
-		self.__build_questions()
+				print("error: number is required")
+		# - make sure guess is correct
+		if guess == answer:
+			correct_answers += 1
+			print("Correct\n")
+			break
+		else:
+			print("WRONG!")
 
-	def __build_questions(self):
-		while self.correct_answers < 10:
-			# Factor in difficulty
-			constant1 = None
-			constant2 = None
-			if self.difficulty == "EASY":
-				constant1 = choice(self.easy_range)
-				constant2 = choice(self.easy_range)
-			elif self.difficulty == "MEDIUM":
-				constant1 = choice(self.medium_range)
-				constant2 = choice(self.medium_range)
-			# Build the question and answer
-			question = None
-			answer = None
-			if self.operator == "ADDITION":
-				question = f"{constant1}+{constant2}="
-				answer = constant1 + constant2
-			if self.operator == "SUBTRACTION":
-				if constant2 > constant1:
-					i = constant1
-					constant1 = constant2
-					constant2 = i
-				question = f"{constant1}-{constant2}="
-				answer = constant1 - constant2
-			if self.operator == "MULTIPLICATION":
-				question = f"{constant1}*{constant2}="
-				answer = constant1 * constant2
-			if self.operator == "DIVISION":
-				i = constant1 * constant2
-				question = f"{i}/{constant2}="
-				answer = constant1
-			# Ask the question
-			if self.__ask_question(question, answer):
-				self.correct_answers += 1
-
-	def __ask_question(self, question, answer):
-		while True:
-			# Receive guess and make sure it's a number
-			while True:
-				try:
-					guess = int(input(question))
-					break
-				except ValueError:
-					print("error: number is required")
-			# Check if guess is correct
-			if guess == answer:
-				print("Correct\n")
-				return True
-			else:
-				print("WRONG!")
-
-
-quiz = Quiz()
