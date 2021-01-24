@@ -7,12 +7,12 @@ def get_decision(question, options):
 	print(question)
 	# Get decision
 	while True:
-		# make sure it's a number
+		# - make sure it's a number
 		try:
 			decision = int(input("Enter number: "))
 		except ValueError:
 			continue
-		# make sure it's valid
+		# - make sure it's valid
 		if decision >= 0 and decision < len(options):
 			break
 	return options[decision]
