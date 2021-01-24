@@ -65,16 +65,16 @@ while correct_answers < 10:
 		i = constant1 * constant2
 		question = f"{i}/{constant2}="
 		answer = constant1
-	# ask the question, get the guess
+	# Get guess
 	while True:
-		# - make sure guess is a number
+		# - make sure it's a number
 		while True:
 			try:
 				guess = int(input(question))
 				break
 			except ValueError:
 				print("error: number is required")
-		# - make sure guess is correct
+		# - make sure it's valid
 		if guess == answer:
 			correct_answers += 1
 			print("Correct\n")
