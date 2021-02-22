@@ -1,5 +1,5 @@
 # noob-math-practicer
-Practice the most basic of math (addition, subtraction, multiplication, division) to increase speed
+Practice the most basic of math (addition, subtraction, multiplication, division) using Pygame
 
 # Using this yourself
 1. Download this repository
