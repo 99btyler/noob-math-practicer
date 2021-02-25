@@ -1,5 +1,5 @@
 import pygame
-from random import randint
+from random import choice, randint
 
 
 class Question():
@@ -15,6 +15,8 @@ class Question():
 		self.topics = ["addition", "subtraction", "multiplication", "division"]
 		self.previous_topic = self.topics[0]
 
+		self.constants = [3, 4, 6, 7, 8, 9, 12]
+
 	def update(self):
 		self.label = self.font.render(self.get_new_question(), True, color_text)
 		self.label_rect = self.label.get_rect(center=(width / 2, height / 2))
@@ -26,8 +28,8 @@ class Question():
 			current_topic = self.topics[randint(0, len(self.topics) - 1)]
 		print(f"topic: {current_topic}")
 
-		constant1 = randint(1, 12)
-		constant2 = randint(1, 12)
+		constant1 = choice(self.constants)
+		constant2 = choice(self.constants)
 
 		# 'addition'
 		if current_topic == self.topics[0]:
