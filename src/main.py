@@ -7,7 +7,7 @@ class Asker():
 	def __init__(self):
 
 		# [question, answer]
-		self.current_ask = ["•••", None]
+		self.current_ask = ["1 + 1", "2"]
 		self.current_ask_index = 0
 
 		self.font = pygame.font.SysFont(None, 150)
