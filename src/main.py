@@ -12,7 +12,7 @@ class Asker():
 
 		self.font = pygame.font.SysFont(None, 150)
 		self.label = self.font.render(self.current_ask[self.current_ask_index], True, color_text)
-		self.label_rect = self.label.get_rect(center=(width / 2, height / 2))
+		self.label_rect = self.label.get_rect(center=(width // 2, height // 2))
 
 		self.topics = ["addition", "subtraction", "multiplication", "division"]
 		self.previous_topic = self.topics[0]
@@ -30,7 +30,7 @@ class Asker():
 			print(f"current_ask: [{self.current_ask[0]}] [{self.current_ask[1]}]")
 
 		self.label = self.font.render(self.current_ask[self.current_ask_index], True, color_text)
-		self.label_rect = self.label.get_rect(center=(width / 2, height / 2))
+		self.label_rect = self.label.get_rect(center=(width // 2, height // 2))
 
 	def update_ask(self):
 
