@@ -8,9 +8,10 @@ class Asker():
 
 		# [question, answer]
 		self.current_ask = ["•••", None]
+		self.current_ask_index = 0
 
 		self.font = pygame.font.SysFont(None, 150)
-		self.label = self.font.render(self.current_ask[0], True, color_text)
+		self.label = self.font.render(self.current_ask[self.current_ask_index], True, color_text)
 		self.label_rect = self.label.get_rect(center=(width / 2, height / 2))
 
 		self.topics = ["addition", "subtraction", "multiplication", "division"]
@@ -19,16 +20,24 @@ class Asker():
 		self.constants = [3, 4, 6, 7, 8, 9, 12]
 
 	def update(self):
-		self.label = self.font.render(self.get_new_ask()[0], True, color_text)
-		self.label_rect = self.label.get_rect(center=(width / 2, height / 2))
-		print(f"{self.current_ask[1]}")
 
-	def get_new_ask(self):
+		# Switch between 0 and 1 (question and answer)
+		if self.current_ask_index == 0:
+			self.current_ask_index = 1
+		else:
+			self.update_ask()
+			self.current_ask_index = 0
+			print(f"current_ask: [{self.current_ask[0]}] [{self.current_ask[1]}]")
+
+		self.label = self.font.render(self.current_ask[self.current_ask_index], True, color_text)
+		self.label_rect = self.label.get_rect(center=(width / 2, height / 2))
+
+	def update_ask(self):
 
 		current_topic = self.previous_topic
 		while current_topic == self.previous_topic:
 			current_topic = self.topics[randint(0, len(self.topics) - 1)]
-		print(f"current_topic: {current_topic}")
+		print(f"\ncurrent_topic: {current_topic}")
 
 		constant1 = choice(self.constants)
 		constant2 = choice(self.constants)
@@ -60,8 +69,6 @@ class Asker():
 			self.current_ask[1] = f"{i // constant2}"
 
 		self.previous_topic = current_topic
-
-		return self.current_ask
 
 
 pygame.init()
