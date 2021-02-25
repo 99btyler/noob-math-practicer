@@ -31,20 +31,24 @@ class Question():
 		constant1 = choice(self.constants)
 		constant2 = choice(self.constants)
 
-		# 'addition'
+		# Addition
 		if current_topic == self.topics[0]:
 			self.current_question = f"{constant1} + {constant2}"
-		# 'subtraction'
+		# Subtraction
 		elif current_topic == self.topics[1]:
+			# - prevent answer from being 0
+			while constant1 == constant2:
+				constant1 = choice(self.constants)
+			# - prevent answer from being negative
 			if constant2 > constant1:
 				i = constant1
 				constant1 = constant2
 				constant2 = i
 			self.current_question = f"{constant1} - {constant2}"
-		# 'multiplication'
+		# Multiplication
 		elif current_topic == self.topics[2]:
 			self.current_question = f"{constant1} x {constant2}"
-		# 'division'
+		# Division
 		elif current_topic == self.topics[3]:
 			i = constant1 * constant2
 			self.current_question = f"{i} / {constant2}"
