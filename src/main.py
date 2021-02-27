@@ -53,9 +53,7 @@ class Asker():
 				constant1 = choice(self.constants)
 			# - prevent answer from being negative
 			if constant2 > constant1:
-				i = constant1
-				constant1 = constant2
-				constant2 = i
+				constant1, constant2 = constant2, constant1
 			self.current_ask[0] = f"{constant1} - {constant2}"
 			self.current_ask[1] = f"{constant1 - constant2}"
 		# Multiplication
