@@ -1,5 +1,6 @@
+import random
+
 import pygame
-from random import choice, randint
 
 
 class Asker():
@@ -64,11 +65,11 @@ class Asker():
 		
 		current_topic = self.previous_topic
 		while current_topic == self.previous_topic:
-			current_topic = self.topics[randint(0, len(self.topics) - 1)]
+			current_topic = self.topics[random.randint(0, len(self.topics) - 1)]
 		print(f"\ncurrent_topic: {current_topic}")
 
-		constant1 = choice(self.constants)
-		constant2 = choice(self.constants)
+		constant1 = random.choice(self.constants)
+		constant2 = random.choice(self.constants)
 
 		# Addition
 		if current_topic == self.topics[0]:
@@ -78,7 +79,7 @@ class Asker():
 		elif current_topic == self.topics[1]:
 			# - prevent answer from being 0
 			while constant1 == constant2:
-				constant1 = choice(self.constants)
+				constant1 = random.choice(self.constants)
 			# - prevent answer from being negative
 			if constant2 > constant1:
 				constant1, constant2 = constant2, constant1
