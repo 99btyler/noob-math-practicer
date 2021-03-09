@@ -12,26 +12,28 @@ class Asker():
 		self.width = 420
 		self.height = 180
 
-		pygame.init()
-		self.screen = pygame.display.set_mode((self.width, self.height))
-		pygame.display.set_caption("noob-math-practicer")
-
 		self.topics = ["addition", "subtraction", "multiplication", "division"]
 		self.previous_topic = self.topics[0]
 		self.constants = [3, 4, 6, 7, 8, 9, 12]
 
-		# [question, answer]
 		self.current_ask = ["1 + 1", "2"]
 		self.current_ask_index = 0
 
+		# Pygame screen
+		pygame.init()
+		self.screen = pygame.display.set_mode((self.width, self.height))
+		pygame.display.set_caption("noob-math-practicer")
+
+		# Pygame widgets
 		self.font = pygame.font.SysFont(None, 150)
 		self.label = self.font.render(self.current_ask[self.current_ask_index], True, self.color_text)
 		self.label_rect = self.label.get_rect(center=(self.width // 2, self.height // 2))
 
+		# Pygame loop
 		running = True
 		while running:
 
-			# EVENTS
+			# - events
 			for event in pygame.event.get():
 
 				# 'quit'
@@ -43,14 +45,13 @@ class Asker():
 					if event.key == pygame.K_RETURN:
 						self.update()
 
-			# DISPLAY
+			# - display
 			self.screen.fill(self.color_background)
 			self.screen.blit(self.label, self.label_rect)
 			pygame.display.flip()
 
 	def update(self):
 
-		# Switch between 0 and 1 (question and answer)
 		if self.current_ask_index == 0:
 			self.current_ask_index = 1
 		else:
@@ -77,10 +78,10 @@ class Asker():
 			self.current_ask[1] = f"{constant1 + constant2}"
 		# Subtraction
 		elif current_topic == self.topics[1]:
-			# - prevent answer from being 0
+			# prevent answer from being 0
 			while constant1 == constant2:
 				constant1 = random.choice(self.constants)
-			# - prevent answer from being negative
+			# prevent answer from being negative
 			if constant2 > constant1:
 				constant1, constant2 = constant2, constant1
 			self.current_ask[0] = f"{constant1} - {constant2}"
